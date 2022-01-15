@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
-@WebServlet(name = "render", value = "/render")
+@WebServlet(name = "home", value = "/home")
 public class RenderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

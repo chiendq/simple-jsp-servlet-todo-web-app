@@ -33,7 +33,7 @@ public class CreateController extends HttpServlet {
 		ItemDAO itemDAO = new ItemDAO();
 		itemDAO.create(item);
 		System.out.println("Create successfully");
-		request.getRequestDispatcher("/render").forward(request,response);
+		response.sendRedirect(request.getContextPath()+"/home");
 	}
 
 	/**

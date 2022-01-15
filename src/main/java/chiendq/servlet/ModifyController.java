@@ -21,27 +21,24 @@ public class ModifyController extends HttpServlet {
         ItemDAO itemDAO = new ItemDAO();
         if(delete != null  && delete.equals("Delete")){
             itemDAO.delete(description);
-            request.getRequestDispatcher("/render").forward(request,response);
+            response.sendRedirect("http://localhost:8080/simple_todo_app_war/home");
             System.out.println("Delete successfully");
         }else if(edit != null && edit.equalsIgnoreCase("Edit")){
             itemDAO.updateDescription(id, description);
-            request.getRequestDispatcher("/render").forward(request,response);
-            return;
+            response.sendRedirect(request.getContextPath()+"/home");
         }else if(bool!= null && bool.equalsIgnoreCase("Done") ){
             itemDAO.updateStatus(id,0);
-            request.getRequestDispatcher("/render").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/home");
             System.out.println("status updated");
-            return;
         }else if(bool!= null && bool.equalsIgnoreCase("Undone") ){
             itemDAO.updateStatus(id,1);
-            request.getRequestDispatcher("/render").forward(request,response);
+            response.sendRedirect(request.getContextPath()+"/home");
             System.out.println("status updated");
-            return;
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request,response);
     }
 }
