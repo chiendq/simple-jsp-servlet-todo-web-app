@@ -1,5 +1,6 @@
 package com.chiendq.dao.impl;
 
+import com.chiendq.dao.ITaskDAO;
 import com.chiendq.entities.Item;
 import com.chiendq.utils.JDBCConnection;
 import java.sql.Connection;
@@ -9,9 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskDAOImpl {
+public class TaskDAOImpl implements ITaskDAO {
 	public void create(Item item) {
-        String SQLCreate = "INSERT INTO todo(description) VALUES(?)";
+        String SQLCreate = "INSERT INTO task(description) VALUES(?)";
         Connection connection = JDBCConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLCreate);
@@ -24,12 +25,12 @@ public class TaskDAOImpl {
         }
 	}
 	
-	public void delete(String description) {
-        String SQLDelete = "DELETE FROM todo WHERE description = ?";
+	public void deleteById(int id) {
+        String SQLDelete = "DELETE FROM task WHERE id = ?";
 		Connection connection = JDBCConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLDelete);
-            preparedStatement.setString(1, description);
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,13 +40,13 @@ public class TaskDAOImpl {
 	}
 	
 	public void updateDescription(int id, String newDescription) {
-        String SQLUpdate = "UPDATE todo SET description=?, status = ? WHERE id=?";
+        String SQLUpdate = "UPDATE task SET description=?, status = ? WHERE id=?";
         Connection connection = JDBCConnection.getConnection();
         System.out.println(newDescription);
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLUpdate);
             preparedStatement.setString(1, newDescription);
-            preparedStatement.setInt(2,find(id).getStatus());
+            preparedStatement.setInt(2,findById(id).getStatus());
             preparedStatement.setInt(3,id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -56,11 +57,11 @@ public class TaskDAOImpl {
 	}
 
     public void updateStatus(int id, int status) {
-        String SQLUpdate = "UPDATE todo SET description=?, status = ? WHERE id=?";
+        String SQLUpdate = "UPDATE task SET description=?, status = ? WHERE id=?";
         Connection connection = JDBCConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLUpdate);
-            preparedStatement.setString(1, find(id).getDescription());
+            preparedStatement.setString(1, findById(id).getDescription());
             preparedStatement.setInt(2, status);
             preparedStatement.setInt(3,id);
             preparedStatement.executeUpdate();
@@ -72,7 +73,7 @@ public class TaskDAOImpl {
     }
 	
 	public List<Item> findAll(){
-		String SQLFindAll = "SELECT * FROM todo ORDER BY status";
+		String SQLFindAll = "SELECT * FROM task ORDER BY status";
 		Connection connection = JDBCConnection.getConnection();
         List<Item> itemList = new ArrayList<>();
         try {
@@ -94,8 +95,8 @@ public class TaskDAOImpl {
         return itemList;
     }
 
-    public Item find(int id){
-        String SQLFind = "SELECT * FROM todo WHERE id = ?";
+    public Item findById(int id){
+        String SQLFind = "SELECT * FROM task WHERE id = ?";
         Connection connection = JDBCConnection.getConnection();
         try {
             PreparedStatement pst = connection.prepareStatement(SQLFind);

@@ -1,5 +1,6 @@
 package com.chiendq.servlet;
 
+import com.chiendq.dao.ITaskDAO;
 import com.chiendq.dao.impl.TaskDAOImpl;
 
 import javax.servlet.*;
@@ -17,10 +18,10 @@ public class ModifyController extends HttpServlet {
         String bool = request.getParameter("status");
         String description = request.getParameter("description");
 
-        TaskDAOImpl taskDAO = new TaskDAOImpl();
+        ITaskDAO taskDAO = new TaskDAOImpl();
         if(delete != null  && delete.equals("Delete")){
-            taskDAO.delete(description);
-            response.sendRedirect("http://localhost:8080/simple_todo_app_war/home");
+            taskDAO.deleteById(id);
+            response.sendRedirect(request.getContextPath()+"/home");
             System.out.println("Delete successfully");
         }else if(edit != null && edit.equalsIgnoreCase("Edit")){
             taskDAO.updateDescription(id, description);
