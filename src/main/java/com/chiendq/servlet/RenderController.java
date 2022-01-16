@@ -1,14 +1,13 @@
-package chiendq.servlet;
+package com.chiendq.servlet;
 
-import chiendq.dao.ItemDAO;
-import chiendq.entities.Item;
+import com.chiendq.dao.impl.TaskDAOImpl;
+import com.chiendq.entities.Item;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.List;
 
 @WebServlet(name = "home", value = "/home")
@@ -55,7 +54,7 @@ public class RenderController extends HttpServlet {
                 "</body>" +
                 "</html>";
         String listItem = "";
-        List<Item> itemList = new ItemDAO().findAll();
+        List<Item> itemList = new TaskDAOImpl().findAll();
         for (Item i: itemList) {
             String des = i.getDescription();
             String newModifyItemHTML = "";

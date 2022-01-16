@@ -1,7 +1,7 @@
-package chiendq.dao;
+package com.chiendq.dao.impl;
 
-import chiendq.entities.Item;
-import chiendq.utils.JDBCConnection;
+import com.chiendq.entities.Item;
+import com.chiendq.utils.JDBCConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemDAO {
+public class TaskDAOImpl {
 	public void create(Item item) {
         String SQLCreate = "INSERT INTO todo(description) VALUES(?)";
         Connection connection = JDBCConnection.getConnection();

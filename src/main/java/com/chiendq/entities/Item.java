@@ -1,4 +1,4 @@
-package chiendq.entities;
+package com.chiendq.entities;
 
 public class Item {
 	private String description;

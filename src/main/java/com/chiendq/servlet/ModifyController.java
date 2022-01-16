@@ -1,7 +1,6 @@
-package chiendq.servlet;
+package com.chiendq.servlet;
 
-import chiendq.dao.ItemDAO;
-import chiendq.entities.Item;
+import com.chiendq.dao.impl.TaskDAOImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,20 +17,20 @@ public class ModifyController extends HttpServlet {
         String bool = request.getParameter("status");
         String description = request.getParameter("description");
 
-        ItemDAO itemDAO = new ItemDAO();
+        TaskDAOImpl taskDAO = new TaskDAOImpl();
         if(delete != null  && delete.equals("Delete")){
-            itemDAO.delete(description);
+            taskDAO.delete(description);
             response.sendRedirect("http://localhost:8080/simple_todo_app_war/home");
             System.out.println("Delete successfully");
         }else if(edit != null && edit.equalsIgnoreCase("Edit")){
-            itemDAO.updateDescription(id, description);
+            taskDAO.updateDescription(id, description);
             response.sendRedirect(request.getContextPath()+"/home");
         }else if(bool!= null && bool.equalsIgnoreCase("Done") ){
-            itemDAO.updateStatus(id,0);
+            taskDAO.updateStatus(id,0);
             response.sendRedirect(request.getContextPath()+"/home");
             System.out.println("status updated");
         }else if(bool!= null && bool.equalsIgnoreCase("Undone") ){
-            itemDAO.updateStatus(id,1);
+            taskDAO.updateStatus(id,1);
             response.sendRedirect(request.getContextPath()+"/home");
             System.out.println("status updated");
         }

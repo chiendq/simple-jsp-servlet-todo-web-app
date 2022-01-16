@@ -1,7 +1,8 @@
-package chiendq.servlet;
+package com.chiendq.servlet;
 
-import chiendq.dao.ItemDAO;
-import chiendq.entities.Item;
+import com.chiendq.dao.impl.TaskDAOImpl;
+import com.chiendq.entities.Item;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,8 +31,8 @@ public class CreateController extends HttpServlet {
 		String des = request.getParameter("description");
 		System.out.println(des);
 		Item item = new Item(des, 0);
-		ItemDAO itemDAO = new ItemDAO();
-		itemDAO.create(item);
+		TaskDAOImpl taskDAO = new TaskDAOImpl();
+		taskDAO.create(item);
 		System.out.println("Create successfully");
 		response.sendRedirect(request.getContextPath()+"/home");
 	}

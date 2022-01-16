@@ -1,4 +1,4 @@
-package chiendq.utils;
+package com.chiendq.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
