@@ -6,6 +6,4 @@ Libraries:
   - jstl
   - slf4j-simple
   - slf4j-api
-  - junit-jupiter-engine
-  - junit-jupiter-api
   - javax.servlet-api
